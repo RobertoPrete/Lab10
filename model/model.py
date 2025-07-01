@@ -6,4 +6,10 @@ from database.DAO import DAO
 class Model:
 
     def __init__(self):
+        self._graph = nx.Graph()
+        self._nodes = None
+        self._edges = None
+        self._idMap = {}
+
+    def buildGraph(self):
         pass
