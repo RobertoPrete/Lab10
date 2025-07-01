@@ -15,7 +15,7 @@ class View(ft.UserControl):
         self._title = None
         self._txtAnno = None
         self._btnCalcola = None
-        self._txtStato = None
+        self._ddStato = None
         self._btnStatiRaggiungibili = None
         self._txt_result = None
 
@@ -30,9 +30,12 @@ class View(ft.UserControl):
         row1 = ft.Row([self._txtAnno, self._btnCalcola], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
 
-        self._txtStato = ft.Dropdown(label="Stato")
-        self._btnStatiRaggiungibili = ft.ElevatedButton(text="Stati raggiungibili")
-        row2 = ft.Row([self._txtStato, self._btnStatiRaggiungibili], alignment=ft.MainAxisAlignment.CENTER, visible=False, disabled=True)
+        self._ddStato = ft.Dropdown(label="Stato", visible=False)
+        self._btnStatiRaggiungibili = ft.ElevatedButton(text="Stati raggiungibili", visible=False)
+        row2 = ft.Row([self._ddStato, self._btnStatiRaggiungibili], alignment=ft.MainAxisAlignment.CENTER)
+        self._page.controls.append(row2)
+
+        self._controller.fill_dd_stato()
 
         # List View where the reply is printed
         self._txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=False)
