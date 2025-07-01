@@ -53,6 +53,18 @@ class View(ft.UserControl):
     def set_controller(self, controller):
         self._controller = controller
 
+    @property
+    def get_valore_anno(self):
+        return self._txtAnno.value
+
+    @property
+    def get_ddStato(self):
+        return self._ddStato
+
+    @property
+    def get_btnStatiRaggiungibili(self):
+        return self._btnStatiRaggiungibili
+
     def create_alert(self, message):
         dlg = ft.AlertDialog(title=ft.Text(message))
         self._page.dialog = dlg
