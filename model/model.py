@@ -50,4 +50,13 @@ class Model:
         return self._graph.number_of_nodes(), self._graph.number_of_edges()
 
     def getNumConfinanti(self, nodo):
-        return len(self._graph.neighbors(nodo))
+        return len(list(self._graph.neighbors(nodo)))
+
+    def nodesDetails(self):
+        lista_nodi = []
+        numero_vicini = []
+        for country in self._nodes:
+            lista_nodi.append(country.StateNme)
+            numero_vicini.append(self.getNumConfinanti(country))
+        return lista_nodi, numero_vicini
+

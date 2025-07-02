@@ -29,6 +29,13 @@ class Controller:
         self._view._btnStatiRaggiungibili.visible = True
         self._view.update_page()
         self._model.buildGraph(self._anno)
+        self._view._txt_result.controls.append(ft.Text("Grafo correttamente creato."))
+        num_componenti_connesse = self._model.getNumCompConnesse()
+        self._view._txt_result.controls.append(ft.Text(f"Il grafo ha {num_componenti_connesse} componenti connesse.\n Di seguito il dettaglio sui nodi:"))
+        # nodi, numVicini = self._model.nodesDetails()
+        # for nodi, numVicini in self._model.nodesDetails():
+        #     self._view._txt_result.controls.append(f"{nodi.StateNme} -- {numVicini} vicini")
+        self._view.update_page()
 
     def fill_dd_stato(self):
         countries = self._model.countries
