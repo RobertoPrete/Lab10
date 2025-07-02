@@ -12,6 +12,7 @@ class Controller:
         self._confine = None
 
     def handleCalcola(self, e):
+        self._view._txt_result.controls.clear()
         try:
             # self._anno = int(self._view.get_valore_anno())
             self._anno = int(self._view._txtAnno.value)
@@ -32,9 +33,12 @@ class Controller:
         self._view._txt_result.controls.append(ft.Text("Grafo correttamente creato."))
         num_componenti_connesse = self._model.getNumCompConnesse()
         self._view._txt_result.controls.append(ft.Text(f"Il grafo ha {num_componenti_connesse} componenti connesse.\n Di seguito il dettaglio sui nodi:"))
-        # nodi, numVicini = self._model.nodesDetails()
-        # for nodi, numVicini in self._model.nodesDetails():
-        #     self._view._txt_result.controls.append(f"{nodi.StateNme} -- {numVicini} vicini")
+        nodi = self._model.getNodes()
+        nodi.sort(key=lambda n: n.StateNme)
+        num_vicini = 0
+        for nodo in nodi:
+            num_vicini = self._model.getNumConfinanti(nodo)
+            self._view._txt_result.controls.append(ft.Text(f"{nodo.StateNme} -- {num_vicini} vicini"))
         self._view.update_page()
 
     def fill_dd_stato(self):
