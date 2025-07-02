@@ -1,6 +1,4 @@
 from database.DB_connect import DBConnect
-from model.arco import Arco
-from model.country import Country
 
 
 class DAO:
@@ -9,6 +7,7 @@ class DAO:
 
     @staticmethod
     def getAllCountries():
+        from model.country import Country
         conn = DBConnect.get_connection()
         cursor = conn.cursor(dictionary=True)
         result = []
@@ -22,6 +21,7 @@ class DAO:
 
     @staticmethod
     def getAllNodes(anno):
+        from model.country import Country
         conn = DBConnect.get_connection()
         cursor = conn.cursor(dictionary=True)
         result = []
@@ -37,7 +37,8 @@ class DAO:
         return result
 
     @staticmethod
-    def getAllEdges(self, codice_confine, anno, idMapCountries):
+    def getAllEdges(codice_confine, anno, idMapCountries):
+        from model.arco import Arco
         conn = DBConnect.get_connection()
         cursor = conn.cursor(dictionary=True)
         result = []
@@ -45,8 +46,8 @@ class DAO:
                     from contiguity c
                     inner join country c2 on c.state1no = c2.CCode 
                     inner join country c3 on c.state2no = c3.CCode
-                    where c.conttype=1 
-                    and `year` <= 1980
+                    where c.conttype=%s 
+                    and `year` <= %s
                     group by c.dyad, c.state1no, c.state2no
                     order by c.dyad, c.state1no, c.state2no"""
         cursor.execute(query, (codice_confine, anno,))
@@ -57,3 +58,5 @@ class DAO:
         return result
 
 
+if __name__ == "__main__":
+    pass

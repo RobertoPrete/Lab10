@@ -7,10 +7,9 @@ class Model:
 
     def __init__(self):
         self._graph = nx.Graph()
-        self.countries = DAO.getAllCountries()
         self._idMapCountries = {}
-        for country in self.countries:
-            self._idMapCountries[country.CCode] = country
+        self.countries = DAO.getAllCountries()
+
         self._nodes = None
         self._edges = None
         self._anno = None
@@ -32,9 +31,17 @@ class Model:
 
     def buildGraph(self, anno):
         self._graph.clear()
+        for country in self.countries:
+            self._idMapCountries[country.CCode] = country
         self._nodes = DAO.getAllNodes(anno)
         self._graph.add_nodes_from(self._nodes)
         self._edges = DAO.getAllEdges(self._confine, self._anno, self._idMapCountries)
+        lista_archi = []
+        for edge in self._edges:
+            if edge not in lista_archi:
+                lista_archi.append(edge)
+        for arco in lista_archi:
+            self._graph.add_edge(arco.c1, arco.c2)
 
     def getNumCompConnesse(self):
         return nx.number_connected_components(self._graph)
@@ -44,4 +51,3 @@ class Model:
 
     def getNumConfinanti(self, nodo):
         return len(self._graph.neighbors(nodo))
-
